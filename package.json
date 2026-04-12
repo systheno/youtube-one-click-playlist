@@ -1,0 +1,25 @@
+{
+  "name": "youtube-playlist-ext",
+  "version": "1.1.0",
+  "description": "Manifest V3 browser extension that adds a one-click '+' button to YouTube thumbnails for sending videos to a pre-selected playlist.",
+  "keywords": [
+    "youtube",
+    "playlist",
+    "browser-extension",
+    "manifest-v3",
+    "web-ext"
+  ],
+  "author": "systheno",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/systheno/youtube-playlist-ext.git"
+  },
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "happy-dom": "^20.8.9",
+    "playwright": "^1.59.1",
+    "vitest": "^4.1.4"
+  }
+}

@@ -1,0 +1,13 @@
+node_modules/
+.git/
+.vscode/
+.DS_Store
+test-results/
+web-ext-artifacts/
+youtube-playlist-ext.zip
+.mcp.json
+.claude/
+.gemini/
+test_headless.*
+playwright-report/
+blob-report/

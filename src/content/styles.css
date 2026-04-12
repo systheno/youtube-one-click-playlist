@@ -1,0 +1,545 @@
+/* ────────────────────────────────────────────
+   YouTube One-Click Playlist — Design Tokens
+   Follows UI/UX Pro Max principles:
+   - Semantic color tokens (not hardcoded hex)
+   - 4/8px spacing rhythm
+   - 150-300ms transitions
+   - WCAG AA contrast (≥4.5:1 text, ≥3:1 UI)
+   - prefers-reduced-motion respected
+   ──────────────────────────────────────────── */
+
+:root {
+  /* Surfaces */
+  --ocp-bg-primary: rgba(255, 255, 255, 0.95);
+  --ocp-bg-secondary: rgba(243, 243, 243, 0.8);
+  --ocp-bg-hover: rgba(0, 0, 0, 0.06);
+  --ocp-bg-active: rgba(0, 0, 0, 0.10);
+
+  /* Text — all meet ≥4.5:1 on white */
+  --ocp-text-primary: #0f0f0f;
+  --ocp-text-secondary: #606060;
+  --ocp-text-tertiary: #909090;
+  --ocp-text-inverse: #ffffff;
+
+  /* Icon color to match YouTube */
+  --ocp-icon-color: #0f0f0f;
+
+  /* Brand — YouTube red, tuned for contrast */
+  --ocp-accent: #cc0000;
+  --ocp-accent-hover: #a30000;
+  --ocp-accent-subtle: rgba(204, 0, 0, 0.08);
+
+  /* Semantic states */
+  --ocp-success: #2ba640;
+  --ocp-error: #ff4e45;
+  --ocp-warning: #f9ab00;
+
+  /* Borders */
+  --ocp-border: rgba(0, 0, 0, 0.12);
+  --ocp-border-focus: #1a73e8;
+
+  /* Shadows */
+  --ocp-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --ocp-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+  --ocp-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16), 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  /* Spacing — 4/8px rhythm */
+  --ocp-space-xs: 4px;
+  --ocp-space-sm: 8px;
+  --ocp-space-md: 12px;
+  --ocp-space-lg: 16px;
+  --ocp-space-xl: 24px;
+
+  /* Radii */
+  --ocp-radius-sm: 6px;
+  --ocp-radius-md: 10px;
+  --ocp-radius-lg: 14px;
+  --ocp-radius-full: 9999px;
+
+  /* Timing */
+  --ocp-duration-fast: 150ms;
+  --ocp-duration-normal: 200ms;
+  --ocp-duration-slow: 300ms;
+  --ocp-easing: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* ── Dark Mode Tokens ── */
+[dark] {
+  --ocp-bg-primary: rgba(40, 40, 40, 0.96);
+  --ocp-bg-secondary: rgba(55, 55, 55, 0.8);
+  --ocp-bg-hover: rgba(255, 255, 255, 0.08);
+  --ocp-bg-active: rgba(255, 255, 255, 0.14);
+
+  --ocp-text-primary: #f1f1f1;
+  --ocp-text-secondary: #aaaaaa;
+  --ocp-text-tertiary: #717171;
+
+  --ocp-icon-color: #f1f1f1;
+
+  --ocp-accent: #ff4e45;
+  --ocp-accent-hover: #ff6961;
+  --ocp-accent-subtle: rgba(255, 78, 69, 0.12);
+
+  --ocp-success: #3dbb5e;
+  --ocp-error: #ff4e45;
+
+  --ocp-border: rgba(255, 255, 255, 0.12);
+  --ocp-border-focus: #8ab4f8;
+
+  --ocp-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.24);
+  --ocp-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.32);
+  --ocp-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.40);
+}
+
+html[dark] {
+  --ocp-bg-primary: rgba(40, 40, 40, 0.96);
+  --ocp-bg-secondary: rgba(55, 55, 55, 0.8);
+  --ocp-bg-hover: rgba(255, 255, 255, 0.08);
+  --ocp-bg-active: rgba(255, 255, 255, 0.14);
+
+  --ocp-text-primary: #f1f1f1;
+  --ocp-text-secondary: #aaaaaa;
+  --ocp-text-tertiary: #717171;
+
+  --ocp-icon-color: #f1f1f1;
+
+  --ocp-accent: #ff4e45;
+  --ocp-accent-hover: #ff6961;
+  --ocp-accent-subtle: rgba(255, 78, 69, 0.12);
+
+  --ocp-success: #3dbb5e;
+  --ocp-error: #ff4e45;
+
+  --ocp-border: rgba(255, 255, 255, 0.12);
+  --ocp-border-focus: #8ab4f8;
+
+  --ocp-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.24);
+  --ocp-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.32);
+  --ocp-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.40);
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ────────────────────────────────────────────
+   Header Toggle Button
+   Sits inside YouTube's masthead #end area.
+   ──────────────────────────────────────────── */
+#ocp-header-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: var(--ocp-space-sm);
+}
+
+#ocp-header-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--ocp-radius-full);
+  border: none;
+  background: transparent;
+  color: var(--ocp-icon-color);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--ocp-duration-fast) var(--ocp-easing),
+              color var(--ocp-duration-fast) var(--ocp-easing);
+}
+
+#ocp-header-toggle:hover {
+  background: var(--ocp-bg-hover);
+  color: var(--ocp-text-primary);
+}
+
+#ocp-header-toggle.ocp-active {
+  background: var(--ocp-bg-active);
+  color: var(--ocp-text-primary);
+}
+
+#ocp-header-toggle:focus-visible {
+  outline: 2px solid var(--ocp-border-focus);
+  outline-offset: 2px;
+}
+
+/* ────────────────────────────────────────────
+   Dropdown Panel
+   Positioned absolutely below the toggle button.
+   NOT fixed/floating — anchored to the header.
+   ──────────────────────────────────────────── */
+#yt-bulk-add-overlay {
+  position: absolute;
+  top: calc(100% + var(--ocp-space-sm));
+  right: 0;
+  z-index: 9999;
+  background: var(--ocp-bg-primary);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: var(--ocp-space-xl) var(--ocp-space-xl) var(--ocp-space-md); /* 24px top/sides, 12px bottom — tighter gap under progress */
+  border: 1px solid var(--ocp-border);
+  border-radius: var(--ocp-radius-lg);
+  box-shadow: var(--ocp-shadow-lg);
+  width: 320px; /* Match popup width: 320px */
+  box-sizing: border-box; /* Ensure padding is included in width */
+  font-family: 'Roboto', 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--ocp-text-primary);
+  animation: ocp-slide-in var(--ocp-duration-slow) var(--ocp-easing) both;
+}
+
+#yt-bulk-add-overlay[hidden] {
+  display: none;
+}
+
+@keyframes ocp-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Panel Title ── */
+#yt-bulk-add-overlay .ocp-title {
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  margin-bottom: var(--ocp-space-lg);
+  color: var(--ocp-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--ocp-space-sm);
+}
+
+#yt-bulk-add-overlay .ocp-title svg {
+  width: 18px;
+  height: 18px;
+  color: var(--ocp-text-primary);
+  flex-shrink: 0;
+}
+
+#yt-bulk-add-overlay .ocp-title-text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Icon Button (gear in title row) ── */
+.ocp-icon-btn {
+  margin-left: auto;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--ocp-radius-full);
+  border: none;
+  background: transparent;
+  color: var(--ocp-text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--ocp-duration-fast) var(--ocp-easing),
+              color var(--ocp-duration-fast) var(--ocp-easing);
+}
+.ocp-icon-btn:hover {
+  background: var(--ocp-bg-hover);
+  color: var(--ocp-text-primary);
+}
+.ocp-icon-btn.ocp-active {
+  background: var(--ocp-bg-active);
+  color: var(--ocp-text-primary);
+}
+.ocp-icon-btn:focus-visible {
+  outline: 2px solid var(--ocp-border-focus);
+  outline-offset: 2px;
+}
+
+/* ── Settings Panel (expands under title) ── */
+#ocp-settings-panel {
+  background: var(--ocp-bg-secondary);
+  border: 1px solid var(--ocp-border);
+  border-radius: var(--ocp-radius-sm);
+  padding: var(--ocp-space-md);
+  margin-bottom: var(--ocp-space-md);
+}
+#ocp-settings-panel[hidden] {
+  display: none;
+}
+.ocp-setting-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ocp-space-sm);
+  font-size: 13px;
+  color: var(--ocp-text-primary);
+  cursor: pointer;
+}
+.ocp-setting-row input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--ocp-accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.ocp-setting-help {
+  margin: var(--ocp-space-xs) 0 0 23px;
+  font-size: 11px;
+  color: var(--ocp-text-secondary);
+  line-height: 1.4;
+}
+
+/* ── Shared input / select / button heights ── */
+#yt-playlist-select,
+#yt-create-name,
+#yt-create-btn {
+  height: 32px;
+  font-size: 13px;
+  font-family: inherit;
+  border: 1px solid var(--ocp-border);
+  border-radius: var(--ocp-radius-sm);
+  box-sizing: border-box; /* CRITICAL: Ensure height includes padding/border */
+  transition: border-color var(--ocp-duration-fast) var(--ocp-easing),
+              box-shadow var(--ocp-duration-fast) var(--ocp-easing);
+}
+
+/* ── Select / Dropdown ── */
+#yt-playlist-select {
+  width: 100%;
+  padding: 0 var(--ocp-space-md);
+  margin-bottom: var(--ocp-space-md);
+  color: var(--ocp-text-primary);
+  background: var(--ocp-bg-secondary);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235f6368' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 28px;
+}
+
+#yt-playlist-select:hover { border-color: var(--ocp-text-tertiary); }
+#yt-playlist-select:focus-visible {
+  outline: none;
+  border-color: var(--ocp-border-focus);
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+/* ── Form Groups ── */
+.ocp-form-group {
+  margin-bottom: var(--ocp-space-sm);
+}
+
+/* ── Labels ── */
+.ocp-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ocp-text-tertiary);
+  margin-bottom: var(--ocp-space-xs);
+}
+
+.ocp-label-create {
+  margin-top: 0; /* Adjusted for new row layout */
+}
+
+/* ── Create Row (input + button) ── */
+.ocp-create-row {
+  display: flex;
+  gap: var(--ocp-space-sm);
+  align-items: stretch;
+  margin-bottom: var(--ocp-space-sm);
+}
+
+#yt-create-name {
+  flex: 1;
+  min-width: 0;
+  padding: 0 var(--ocp-space-md);
+  color: var(--ocp-text-primary);
+  background: var(--ocp-bg-secondary);
+}
+
+#yt-create-name::placeholder { color: var(--ocp-text-tertiary); }
+#yt-create-name:focus-visible {
+  outline: none;
+  border-color: var(--ocp-border-focus);
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+/* ── Create Button ── */
+#yt-create-btn {
+  padding: 0 var(--ocp-space-md);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  background: var(--ocp-accent);
+  color: var(--ocp-text-inverse);
+  border-color: var(--ocp-accent);
+  transition: background var(--ocp-duration-fast) var(--ocp-easing),
+              transform 100ms var(--ocp-easing);
+}
+#yt-create-btn:hover { background: var(--ocp-accent-hover); border-color: var(--ocp-accent-hover); }
+#yt-create-btn:active { transform: scale(0.97); }
+#yt-create-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ── Primary Button (Bulk Add) ── */
+.ocp-btn-primary {
+  width: 100%;
+  padding: var(--ocp-space-md) var(--ocp-space-lg);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--ocp-text-inverse);
+  background: var(--ocp-accent);
+  border: none;
+  border-radius: var(--ocp-radius-sm);
+  cursor: pointer;
+  transition: background var(--ocp-duration-fast) var(--ocp-easing),
+              transform 100ms var(--ocp-easing);
+  margin-top: 4px;
+}
+
+.ocp-btn-primary:hover { background: var(--ocp-accent-hover); }
+.ocp-btn-primary:active { transform: scale(0.98); }
+.ocp-btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ── Bulk Add Progress Bar ── */
+.ocp-progress {
+  margin-top: var(--ocp-space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ocp-space-xs);
+}
+
+.ocp-progress[hidden] {
+  display: none;
+}
+
+.ocp-progress-track {
+  width: 100%;
+  height: 6px;
+  background: var(--ocp-bg-secondary);
+  border: 1px solid var(--ocp-border);
+  border-radius: var(--ocp-radius-full);
+  overflow: hidden;
+}
+
+.ocp-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--ocp-accent);
+  border-radius: var(--ocp-radius-full);
+  transition: width var(--ocp-duration-normal) var(--ocp-easing);
+}
+
+.ocp-progress-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ocp-text-secondary);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Divider ── */
+.ocp-divider {
+  height: 1px;
+  background: var(--ocp-border);
+  margin: var(--ocp-space-sm) 0;
+}
+
+/* ────────────────────────────────────────────
+   Add Button (injected on video thumbnails)
+   Matches YouTube's icon button pattern.
+   Min 36px hit area for desktop, scales well.
+   ──────────────────────────────────────────── */
+.yt-one-click-add-btn {
+  background-color: transparent;
+  color: var(--ocp-icon-color);
+  border: none;
+  border-radius: var(--ocp-radius-full);
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--ocp-duration-fast) var(--ocp-easing),
+              color var(--ocp-duration-fast) var(--ocp-easing),
+              transform var(--ocp-duration-fast) var(--ocp-easing);
+  margin-right: var(--ocp-space-xs);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.yt-one-click-add-btn:hover {
+  background-color: var(--ocp-bg-hover);
+  color: var(--ocp-icon-color);
+}
+
+.yt-one-click-add-btn:active {
+  transform: scale(0.90);
+  background-color: var(--ocp-bg-active);
+}
+
+.yt-one-click-add-btn:focus-visible {
+  outline: 2px solid var(--ocp-border-focus);
+  outline-offset: 2px;
+}
+
+/* ── Disabled State ── */
+.yt-one-click-add-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.yt-one-click-add-btn:disabled:hover {
+  background-color: transparent;
+  color: var(--ocp-text-tertiary);
+}
+
+/* ── Success / Error / Skipped States ── */
+.yt-one-click-add-btn[data-state="success"] {
+  color: var(--ocp-success);
+}
+
+.yt-one-click-add-btn[data-state="error"] {
+  color: var(--ocp-error);
+}
+
+/* Already in the selected playlist — treated as a soft success. */
+.yt-one-click-add-btn[data-state="skipped"] {
+  color: var(--ocp-warning);
+}
+
+/* ── Loading Spinner ── */
+@keyframes ocp-spin {
+  to { transform: rotate(360deg); }
+}
+
+.yt-one-click-add-btn[data-state="loading"]::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--ocp-border);
+  border-top-color: var(--ocp-accent);
+  border-radius: 50%;
+  animation: ocp-spin 0.6s linear infinite;
+}
+
+.yt-one-click-add-btn[data-state="loading"] {
+  color: transparent;
+}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube One-Click Playlist</title>
+  <style>
+    /* ── Design Tokens ── */
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f9f9f9;
+      --bg-hover: rgba(0, 0, 0, 0.05);
+      --text-primary: #0f0f0f;
+      --text-secondary: #606060;
+      --text-tertiary: #909090;
+      --text-inverse: #ffffff;
+      --accent: #cc0000;
+      --accent-hover: #a30000;
+      --success: #2ba640;
+      --error: #ff4e45;
+      --border: rgba(0, 0, 0, 0.1);
+      --border-focus: #1a73e8;
+      --radius-sm: 8px;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 12px;
+      --space-lg: 16px;
+      --space-xl: 24px;
+      --duration: 200ms;
+      --easing: cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-primary: #282828;
+        --bg-secondary: #3f3f3f;
+        --bg-hover: rgba(255, 255, 255, 0.1);
+        --text-primary: #f1f1f1;
+        --text-secondary: #aaaaaa;
+        --text-tertiary: #717171;
+        --accent: #ff4e45;
+        --accent-hover: #ff6961;
+        --success: #3dbb5e;
+        --error: #ff4e45;
+        --border: rgba(255, 255, 255, 0.12);
+        --border-focus: #8ab4f8;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 320px;
+      padding: var(--space-xl) var(--space-xl) var(--space-md);
+      font-family: 'Roboto', 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    /* ── Header ── */
+    .popup-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.01em;
+    }
+
+    .popup-header svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── Form Group ── */
+    .form-group {
+      margin-bottom: var(--space-sm);
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-xs);
+    }
+
+    /* ── Status Indicator ── */
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-left: auto;
+      background: var(--text-tertiary);
+      box-shadow: 0 0 0 2px var(--bg-primary), 0 0 0 4px var(--border);
+    }
+    .status-dot.active { background: var(--success); box-shadow: 0 0 0 2px var(--bg-primary), 0 0 8px var(--success); }
+    .status-dot.error { background: var(--error); }
+
+    /* ── Status Card ── */
+    .status-card {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      padding: var(--space-lg);
+      border-radius: var(--radius-sm);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      margin-bottom: var(--space-md);
+      transition: background var(--duration) var(--easing),
+                  border-color var(--duration) var(--easing);
+    }
+
+    .status-card.active {
+      background: rgba(43, 166, 64, 0.08);
+      border-color: var(--success);
+    }
+
+    .status-card.warn {
+      background: rgba(255, 78, 69, 0.08);
+      border-color: var(--accent);
+      animation: status-pulse 2s var(--easing) infinite;
+    }
+
+    @keyframes status-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(204, 0, 0, 0.0); }
+      50%      { box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.15); }
+    }
+
+    .status-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--bg-primary);
+      color: var(--text-tertiary);
+      border: 2px solid var(--border);
+    }
+
+    .status-card.active .status-icon {
+      background: var(--success);
+      color: var(--text-inverse);
+      border-color: var(--success);
+    }
+
+    .status-card.warn .status-icon {
+      background: var(--accent);
+      color: var(--text-inverse);
+      border-color: var(--accent);
+    }
+
+    .status-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .status-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .status-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .status-detail {
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .status-card.warn .status-title { color: var(--accent); }
+
+    .btn-open-youtube {
+      display: none;
+      width: 100%;
+      padding: var(--space-md) var(--space-lg);
+      margin-top: var(--space-sm);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      color: var(--text-inverse);
+      background: var(--accent);
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background var(--duration) var(--easing),
+                  transform 100ms var(--easing);
+    }
+
+    .btn-open-youtube.visible { display: block; }
+    .btn-open-youtube:hover { background: var(--accent-hover); }
+    .btn-open-youtube:active { transform: scale(0.98); }
+
+    /* ── Settings ── */
+    .setting-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-xs) 0;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+    .setting-row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: var(--space-sm) 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="popup-header">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="6" y="3" width="12" height="18" rx="2"/>
+      <path d="M10 8h4"/>
+      <path d="M10 12h4"/>
+      <path d="M10 16h4"/>
+    </svg>
+    One-Click Playlist
+    <div id="statusIndicator" class="status-dot" title="Checking status..."></div>
+  </div>
+
+  <div id="statusCard" class="status-card">
+    <div class="status-icon" id="statusIcon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+      </svg>
+    </div>
+    <div class="status-body">
+      <div class="status-title" id="statusTitle">Checking…</div>
+      <div class="status-detail" id="statusDetail">Detecting YouTube tab.</div>
+    </div>
+  </div>
+
+  <button class="btn-open-youtube" id="openYoutubeBtn">Open YouTube</button>
+
+  <div class="divider"></div>
+
+  <div class="form-group">
+    <label>Settings</label>
+    <label class="setting-row">
+      <input type="checkbox" id="preventDuplicates">
+      <span>Prevent duplicates</span>
+    </label>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
