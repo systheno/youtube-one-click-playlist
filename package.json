@@ -1,5 +1,5 @@
 {
-  "name": "youtube-playlist-ext",
+  "name": "youtube-one-click-playlist",
   "version": "1.1.0",
   "description": "Manifest V3 browser extension that adds a one-click '+' button to YouTube thumbnails for sending videos to a pre-selected playlist.",
   "keywords": [
@@ -13,7 +13,39 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/systheno/youtube-playlist-ext.git"
+    "url": "https://github.com/systheno/youtube-one-click-playlist.git"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "vitest run \"tests/**/*.test.js\"",
+    "test:e2e": "playwright test",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:create": "playwright codegen --browser firefox https://www.youtube.com",
+    "start": "npx web-ext run",
+    "build": "npx web-ext build --overwrite-dest",
+    "package": "bash scripts/package.sh",
+    "zip": "zip -r youtube-one-click-playlist.zip . -x \"node_modules/*\" -x \".git/*\" -x \"web-ext-artifacts/*\" -x \"*.zip\""
+  },
+  "webExt": {
+    "sourceDir": ".",
+    "ignoreFiles": [
+      "node_modules",
+      "tests",
+      "test-results",
+      "test_headless.*",
+      "playwright.config.*",
+      "scripts",
+      ".gemini",
+      ".mcp.json",
+      "GEMINI.md",
+      "CLAUDE.md",
+      "package.json",
+      "package-lock.json",
+      "youtube-one-click-playlist.zip",
+      "web-ext-artifacts"
+    ]
   },
   "type": "commonjs",
   "devDependencies": {
