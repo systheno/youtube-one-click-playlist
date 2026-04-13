@@ -5,9 +5,12 @@ node_modules/
 test-results/
 web-ext-artifacts/
 youtube-playlist-ext.zip
+youtube-one-click-playlist.zip
 .mcp.json
 .claude/
 .gemini/
+CLAUDE.md
+GEMINI.md
 test_headless.*
 playwright-report/
 blob-report/

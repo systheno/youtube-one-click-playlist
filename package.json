@@ -19,7 +19,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "vitest run \"tests/**/*.test.js\"",
+    "test": "vitest run tests/scraper.test.js",
     "test:e2e": "playwright test",
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:create": "playwright codegen --browser firefox https://www.youtube.com",

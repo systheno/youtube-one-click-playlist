@@ -1,6 +1,7 @@
 let selectedPlaylistId = null;
 let headerInitInFlight = false;
 let refreshIntervalId = null;
+let ytConfig = null;
 
 function showToast(text) {
   const toast = document.getElementById('ocp-toast');
