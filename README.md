@@ -13,16 +13,20 @@ A Manifest V3 browser extension that adds a **+** button directly onto YouTube v
   - Zero background network access, zero telemetry, and zero third-party servers.
   - All operations stay between your browser and YouTube.
 
-## Installation (Unpacked)
+## Installation
 
-### For Firefox (Recommended)
+### Firefox (Recommended)
+You can install the official extension from the **[Firefox Add-ons Store](https://addons.mozilla.org/en-US/firefox/addon/youtube-one-click-playlist/)**.
+
+### Manual Installation (Unpacked)
+
+#### For Firefox
 1. Clone or download this repository.
 2. Open Firefox and navigate to `about:debugging#/runtime/this-firefox`.
 3. Click **Load Temporary Add-on...**.
 4. Select the `manifest.json` file from the project folder.
-5. Go to [YouTube](https://www.youtube.com) — you'll see a **+** button on thumbnails and a new control panel in the top masthead.
 
-### For Chrome / Edge / Brave
+#### For Chrome / Edge / Brave
 1. Clone or download this repository.
 2. Open `chrome://extensions`.
 3. Enable **Developer mode** (toggle in the top right).
